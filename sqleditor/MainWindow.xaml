@@ -1,0 +1,64 @@
+﻿<Window x:Class="sqleditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:sqleditor"
+        mc:Ignorable="d"
+        Title="SQL Editor" Height="500" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top bar: left = inputs, right = Export -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                <Button x:Name="BtnChooseFolder" Width="160" Margin="0,0,8,0" Click="BtnChooseFolder_Click" Content="Dosya seç / dosya üret"/>
+                <TextBlock VerticalAlignment="Center" Margin="8,0,4,0" Text="proje adı"/>
+                <TextBox x:Name="TxtProjectName" Width="180" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <TextBlock VerticalAlignment="Center" Margin="8,0,4,0"><Run Language="tr-tr" Text="DB türü"/></TextBlock>
+                <ComboBox x:Name="CmbSqlType" Width="140" VerticalAlignment="Center">
+                    <ComboBoxItem>MySql</ComboBoxItem>
+                    <ComboBoxItem>PostgreSQL</ComboBoxItem>
+                    <ComboBoxItem>SQLite</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <Button x:Name="BtnExport" Grid.Column="1" Width="100" Margin="12,0,0,0" Click="BtnExport_Click" HorizontalAlignment="Right" Content="Üret"/>
+        </Grid>
+
+        <!-- Data grid -->
+        <DataGrid x:Name="DataGridUsers" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,8" SelectionChanged="DataGridUsers_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="username" Binding="{Binding Username}" />
+                <DataGridTextColumn Header="email" Binding="{Binding Email}" />
+                <DataGridTextColumn Header="password" Binding="{Binding Password}" />
+                <DataGridTextColumn Header="phonenumber" Binding="{Binding PhoneNumber}" />
+                <DataGridTextColumn Header="living_place" Binding="{Binding LivingPlace}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bottom bar: left = add row + path, right = edit sql -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="BtnAddRow" Width="100" Click="BtnAddRow_Click" Content="+ Yeni satır"/>
+                <TextBlock x:Name="TxtFolderPath" VerticalAlignment="Center" Margin="12,0,0,0"><Run Language="tr-tr" Text="dosya seçili değil"/></TextBlock>
+            </StackPanel>
+
+            <Button x:Name="BtnEditSql" Grid.Column="1" Width="103" Click="BtnEditSql_Click" HorizontalAlignment="Right" Content="Sql'i Editle"/>
+        </Grid>
+    </Grid>
+</Window>
